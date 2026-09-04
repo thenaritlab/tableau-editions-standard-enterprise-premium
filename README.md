@@ -16,6 +16,9 @@
   - [🟢 Standard Edition](#-standard-edition)
   - [🔵 Enterprise Edition](#-enterprise-edition)
   - [🟣 Premium (Cloud+ / Server+ / Tableau+ Bundle)](#-premium-cloud--server--tableau-bundle)
+- [🗂️ Data Management คืออะไร](#️-data-management-คืออะไร)
+- [🛡️ Advanced Management คืออะไร](#️-advanced-management-คืออะไร)
+- [⚡ Tableau Pulse vs Pulse Premium](#-tableau-pulse-vs-pulse-premium)
 - [เหมาะกับใคร?](#-เหมาะกับใคร)
 - [ประโยชน์ที่ได้รับในแต่ละระดับ](#-ประโยชน์ที่ได้รับในแต่ละระดับ)
 - [ข้อควรรู้ก่อนตัดสินใจ](#️-ข้อควรรู้ก่อนตัดสินใจ)
@@ -123,6 +126,60 @@ Edition พื้นฐานที่มีครบสำหรับการ
 
 ---
 
+## 🗂️ Data Management คืออะไร
+
+**Data Management** คือชุดฟีเจอร์ที่ช่วยให้ข้อมูลใน Tableau "น่าเชื่อถือ ค้นหาง่าย และดูแลรักษาได้เป็นระบบ" เริ่มมีให้ใช้ตั้งแต่ระดับ **Enterprise** ขึ้นไป ประกอบด้วย 3 ส่วนหลัก:
+
+| ฟีเจอร์ | ทำอะไรได้ | ประโยชน์ที่ได้ |
+|---|---|---|
+| 🔎 **Tableau Catalog** | ค้นหาและติดตามข้อมูลทั้งหมดที่ถูกใช้ใน Tableau, ดู Data Lineage (ข้อมูลมาจากไหน ไปอยู่ Dashboard ไหนบ้าง), แจ้งเตือนคุณภาพข้อมูล (Data Quality Warning) | รู้ผลกระทบก่อนแก้ไขข้อมูลต้นทาง ลดปัญหา "แก้ตารางเดียว Dashboard พังทั้งบริษัท" |
+| ⚙️ **Tableau Prep Conductor** | ตั้งเวลาและติดตามการรัน Flow เตรียมข้อมูล (Prep Flow) อัตโนมัติ พร้อมแจ้งเตือนเมื่อ Flow ทำงานล้มเหลว | ไม่ต้องมานั่งกดรันข้อมูลเองทุกวัน มั่นใจว่าข้อมูลที่ใช้วิเคราะห์เป็นข้อมูลล่าสุดเสมอ |
+| 🔐 **Virtual Connections & Data Policies** | สร้างจุดเชื่อมต่อข้อมูลกลางที่แชร์ใช้ร่วมกันได้ พร้อมกำหนด Row-Level Security (RLS) ไว้ที่ระดับ Connection เดียว | ตั้งสิทธิ์การเห็นข้อมูลครั้งเดียว ใช้ได้กับทุก Dashboard ที่เชื่อมต่อ ไม่ต้องตั้งซ้ำทีละไฟล์ |
+
+> [!NOTE]
+> Data Management ไม่ได้ขายแยกเป็น Add-on อีกต่อไปแล้ว (ตั้งแต่ 16 ก.ย. 2024) ปัจจุบันจะได้ใช้ก็ต่อเมื่อซื้อ **Enterprise Edition** หรือ **Tableau+** เท่านั้น
+
+---
+
+## 🛡️ Advanced Management คืออะไร
+
+**Advanced Management** คือชุดเครื่องมือสำหรับ "ผู้ดูแลระบบ" (Admin) เพื่อบริหารจัดการ Deployment ขนาดใหญ่ให้ปลอดภัยและตรวจสอบย้อนหลังได้ เริ่มมีให้ใช้ตั้งแต่ระดับ **Enterprise** ขึ้นไปเช่นกัน:
+
+| ฟีเจอร์ | ทำอะไรได้ | ประโยชน์ที่ได้ |
+|---|---|---|
+| 📦 **Content Migration Tool (CMT)** | ย้าย Workbook, Data Source, Project, User และสิทธิ์การเข้าถึง ระหว่าง Dev → Production หรือระหว่าง Site/Server แบบไม่ต้องเขียนโค้ด ทำเป็นแผนย้ายที่ตั้งเวลารันซ้ำได้ | ลดความผิดพลาดจากการย้ายไฟล์ด้วยมือ ย้าย Dashboard นับร้อยไฟล์เสร็จในไม่กี่คลิก |
+| 📝 **Activity Log & Admin Insights** | บันทึกทุกกิจกรรมของผู้ใช้แบบละเอียด (ใครดู/แก้/ดาวน์โหลดอะไร เมื่อไหร่) พร้อม Dashboard สำเร็จรูปวิเคราะห์อัตราการใช้งาน | ใช้เป็นหลักฐานตรวจสอบ (Audit) ตอบโจทย์ Compliance และเห็นว่า Dashboard ไหนถูกใช้จริง อันไหนควรเลิกใช้ |
+| 🖥️ **Resource Monitoring Tool** (เฉพาะ Tableau Server) | ติดตามการใช้ทรัพยากรฮาร์ดแวร์ (CPU/RAM) ของ Server แจ้งเตือนก่อนระบบมีปัญหา | ป้องกัน Server ล่มจากการใช้งานหนัก วางแผนขยาย Infrastructure ได้ล่วงหน้า |
+| 🔑 **Customer-Managed Encryption Keys (CMEK)** | จัดการ Encryption Key สำหรับเข้ารหัสข้อมูลด้วยตัวเอง (สร้าง/หมุนเวียน/ลบ Key ได้) | ตอบโจทย์นโยบายความปลอดภัยข้อมูลระดับองค์กร โดยเฉพาะกลุ่มการเงิน/ประกันภัย/สุขภาพ |
+
+> [!NOTE]
+> เช่นเดียวกับ Data Management — Advanced Management ไม่ได้ขายแยกเป็น Add-on อีกต่อไป (ตั้งแต่ 16 ก.ย. 2024) ต้องซื้อผ่าน **Enterprise Edition** หรือ **Tableau+** เท่านั้น
+
+---
+
+## ⚡ Tableau Pulse vs Pulse Premium
+
+**Tableau Pulse** คือฟีเจอร์ AI ที่ "ส่ง Insight มาหาผู้ใช้" แทนที่จะให้ผู้ใช้ไปเปิดหา Dashboard เอง — มากับทุก Edition ของ Tableau Cloud โดยไม่มีค่าใช้จ่ายเพิ่ม ส่วน **Pulse Premium** เป็นความสามารถขั้นสูงกว่า ที่มีเฉพาะใน **Tableau+ Bundle** เท่านั้น
+
+| ความสามารถ | 🔹 Tableau Pulse (มาตรฐาน) | 🔸 Pulse Premium (Tableau+ เท่านั้น) |
+|---|---|---|
+| หน้าสรุป Metric ส่วนตัว (Personalized Homepage) | ✅ | ✅ |
+| แจ้งเตือนความผิดปกติอัตโนมัติ (Anomaly Detection) | ✅ | ✅ |
+| สรุปเหตุผลเบื้องหลัง Insight ด้วยภาษาธรรมชาติ | ✅ (พื้นฐาน) | ✅ (ละเอียดขึ้น พร้อม Citation อ้างอิงแหล่งข้อมูล) |
+| **Enhanced Q&A / Discover** — ถามคำถามข้ามหลาย Metric พร้อมกัน | ❌ | ✅ |
+| **Dynamic Sorting & Grouping** — จัดกลุ่ม/เรียง Metric อัตโนมัติตามความเกี่ยวข้อง | ❌ | ✅ |
+| **Metric Goals & Threshold Tracking** — ติดตามเทียบกับเป้าหมาย ไม่ใช่แค่ค่าสิ้นงวด | ❌ | ✅ |
+| กำหนดความถี่ Digest ได้ยืดหยุ่น (Digest Cadence) | จำกัด | ✅ ปรับได้ตามรอบข้อมูล Refresh |
+| แจ้งเตือนนอกรอบ (Off-cycle Alert) เมื่อ Metric ผิดปกติกะทันหัน | ❌ | ✅ (สูงสุด 1 ครั้ง/วัน) |
+| กรอง/เปรียบเทียบ Metric ตามภูมิภาค/สินค้า ด้วยภาษาธรรมชาติ | ❌ | ✅ |
+| ระยะเวลาข้อมูลย้อนหลังที่ใช้วิเคราะห์ | มาตรฐาน | ยาวขึ้น + โมเดล AI ขั้นสูงกว่า |
+| ใช้งานร่วมกับ Salesforce Data Cloud / Einstein Trust Layer | พื้นฐาน | เต็มรูปแบบ (ต้องเชื่อม Salesforce Org) |
+
+> [!TIP]
+> สรุปง่าย ๆ: **Pulse มาตรฐาน** เหมาะกับทีมที่ต้องการแค่ "รู้ว่า Metric อะไรผิดปกติ" ส่วน **Pulse Premium** เหมาะกับผู้บริหารที่ต้องการ "คุยกับข้อมูลได้เหมือนคุยกับนักวิเคราะห์" — ถามคำถามซับซ้อนข้ามหลาย Metric แล้วได้คำตอบพร้อมเหตุผลและแหล่งอ้างอิงทันที
+
+---
+
 ## 🎯 เหมาะกับใคร?
 
 | กลุ่มผู้ใช้ | Edition ที่แนะนำ | เหตุผล |
@@ -160,6 +217,10 @@ Edition พื้นฐานที่มีครบสำหรับการ
 - [About Tableau Enterprise — Tableau Help](https://help.tableau.com/current/online/en-us/to_tab_enterprise_features.htm)
 - [Understanding License Models — Tableau Help](https://help.tableau.com/current/online/en-us/license_product_keys.htm)
 - [Tableau Blog: Expanding Access to Agentic Analytics](https://www.tableau.com/blog/tableau-agentic-analytics-pricing-updates)
+- [About Data Management — Tableau Help](https://help.tableau.com/current/online/en-us/dm_overview.htm)
+- [Advanced Management — tableau.com](https://www.tableau.com/products/advanced-management)
+- [Tableau Pulse — tableau.com](https://www.tableau.com/products/tableau-pulse)
+- [Tableau Pulse Release Notes — Tableau Help](https://help.tableau.com/current/online/en-us/pulse_intro.htm)
 
 ---
 
