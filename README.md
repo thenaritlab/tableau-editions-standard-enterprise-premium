@@ -19,6 +19,7 @@
 - [🗂️ Data Management คืออะไร](#️-data-management-คืออะไร)
 - [🛡️ Advanced Management คืออะไร](#️-advanced-management-คืออะไร)
 - [⚡ Tableau Pulse vs Pulse Premium](#-tableau-pulse-vs-pulse-premium)
+- [🤖 Tableau Agent คืออะไร](#-tableau-agent-คืออะไร)
 - [เหมาะกับใคร?](#-เหมาะกับใคร)
 - [ประโยชน์ที่ได้รับในแต่ละระดับ](#-ประโยชน์ที่ได้รับในแต่ละระดับ)
 - [ข้อควรรู้ก่อนตัดสินใจ](#️-ข้อควรรู้ก่อนตัดสินใจ)
@@ -58,7 +59,7 @@ Tableau แบ่งการใช้งานออกเป็น 2 มิต
 | **Tableau Pulse (AI Insight พื้นฐาน)** | ✅ | ✅ | ✅ พร้อม **Pulse Premium** |
 | **Data Management** (Catalog, Prep Conductor, Lineage) | ❌ | ✅ | ✅ |
 | **Advanced Management** (Content Migration, API Control, Activity Log) | ❌ | ✅ | ✅ |
-| **Tableau Agent** (AI สร้างกราฟด้วยภาษาธรรมชาติ) | ❌ | บางส่วน (ขึ้นกับ Deployment) | ✅ เต็มรูปแบบ |
+| **Tableau Agent** (AI สร้างกราฟด้วยภาษาธรรมชาติ) | ❌ | บางส่วน* | ✅ เต็มรูปแบบ (Cloud) |
 | **Agentforce Skills** (Concierge, Inspector, Data Pro) | ❌ | ❌ | ✅ |
 | **Data Cloud Credits** | ❌ | ❌ | ✅ (เช่น 250,000 เครดิต/ปี) |
 | **eLearning** | ❌ | ✅ | ✅ |
@@ -68,6 +69,8 @@ Tableau แบ่งการใช้งานออกเป็น 2 มิต
 
 > [!IMPORTANT]
 > ราคาข้างต้นอ้างอิงจาก Tableau Cloud (ข้อมูลเปิดเผยต่อสาธารณะ กลางปี 2026) เป็น**ราคาโดยประมาณ** สำหรับใช้เปรียบเทียบเชิงโครงสร้างเท่านั้น ราคาจริงและเงื่อนไขสัญญาอาจเปลี่ยนแปลง ควรตรวจสอบกับ Tableau หรือ Partner ที่ได้รับการรับรองในประเทศไทยก่อนตัดสินใจซื้อ
+>
+> \* **Tableau Agent บน Enterprise** ใช้ได้เต็มรูปแบบบน **Tableau Server** (ตั้งแต่ 2025.3) แต่ต้องเชื่อมต่อ LLM ของตัวเอง — ส่วนบน **Tableau Cloud** ต้องอัปเกรดเป็น Cloud+/Tableau+ เท่านั้นถึงจะใช้ได้ ดูรายละเอียดที่หัวข้อ [🤖 Tableau Agent คืออะไร](#-tableau-agent-คืออะไร)
 
 ---
 
@@ -112,7 +115,7 @@ Edition พื้นฐานที่มีครบสำหรับการ
 ระดับสูงสุด เน้น **Agentic Analytics** — ให้ AI ช่วยวิเคราะห์ ตอบคำถาม และดำเนินการแทนผู้ใช้ได้มากขึ้น
 
 **สิ่งที่เพิ่มจาก Enterprise:**
-- **Tableau Agent** — สร้างและวิเคราะห์ Visualization ด้วยภาษาธรรมชาติ (Powered by Einstein AI)
+- **Tableau Agent** — สร้างและวิเคราะห์ Visualization ด้วยภาษาธรรมชาติ ผ่าน Einstein Trust Layer แบบเต็มรูปแบบ พร้อม Zero Data Retention และ PII Masking อัตโนมัติ (ดูรายละเอียดที่หัวข้อ [🤖 Tableau Agent คืออะไร](#-tableau-agent-คืออะไร))
 - **Pulse Premium Features** — Conversational Analytics พร้อมอ้างอิงแหล่งข้อมูล (Citation) และ Insight เชิงลึก
 - **Agentforce Skills** — ชุดความสามารถ AI สำเร็จรูป 3 แบบ: Concierge (ตอบคำถาม), Inspector (เฝ้าระวังข้อมูลผิดปกติ), Data Pro (เตรียมข้อมูลอัตโนมัติ)
 - **Data Cloud Credits** — โควตาสำหรับเชื่อมต่อ Salesforce Data Cloud (เช่น 250,000 เครดิต/ปี)
@@ -180,6 +183,57 @@ Edition พื้นฐานที่มีครบสำหรับการ
 
 ---
 
+## 🤖 Tableau Agent คืออะไร
+
+**Tableau Agent** คือผู้ช่วย AI แบบสนทนา (Conversational AI) ที่ทำงานอยู่ในหน้า Web Authoring, Tableau Desktop, Tableau Prep และ (แบบ Beta) บน Dashboard โดยตรง ช่วยให้ผู้ใช้ "คุยกับข้อมูล" ด้วยภาษาธรรมชาติแทนการลาก-วางฟิลด์เอง
+
+### Tableau Agent ทำอะไรได้บ้าง
+
+- 📊 **สร้าง Visualization ด้วยภาษาพูด** — พิมพ์คำถามหรือคำสั่งเป็นภาษาธรรมชาติ แล้วให้ Agent สร้างกราฟ/Dashboard ให้อัตโนมัติ
+- 🧮 **สร้างและอธิบาย Calculated Field** — ขอให้ Agent เขียนสูตรคำนวณให้ หรืออธิบายว่าสูตรที่มีอยู่ทำงานอย่างไร
+- 🧹 **ช่วยงานใน Tableau Prep** — แนะนำขั้นตอนทำความสะอาด/แปลงข้อมูลด้วยภาษาธรรมชาติ
+- 🏷️ **อธิบายเนื้อหาใน Tableau Catalog** — สรุปว่า Project, Workbook หรือ Data Source แต่ละตัวคืออะไร ใช้ทำอะไร
+- 💬 **Conversational Analytics บน Dashboard (Beta)** — ถามคำถามเกี่ยวกับข้อมูลได้ทันทีจากหน้า Dashboard โดยไม่ต้องสลับไปหน้าอื่น
+- 🔍 **Index ข้อมูลอัตโนมัติทุก Session** — วิเคราะห์โครงสร้างข้อมูล (ชนิดข้อมูล, ชื่อฟิลด์, ตัวอย่างค่า) ก่อนเริ่มตอบคำถาม เพื่อให้คำตอบตรงบริบท
+
+> [!NOTE]
+> Tableau Agent มองเห็น**เฉพาะ Data Source ที่ Workbook นั้นเชื่อมต่ออยู่**เท่านั้น ไม่รู้จัก Data Source อื่นในระบบ จึงไม่สามารถตอบคำถามข้าม Data Source หรือคำถามความรู้ทั่วไปได้ และจะเคารพสิทธิ์ Row-Level / Column-Level Security ที่ตั้งไว้เสมอ
+
+### 🔀 ความแตกต่าง: Tableau Cloud vs Tableau Server (On-Premise)
+
+นี่คือสิ่งที่คำว่า **"บางส่วน (ขึ้นกับ Deployment)"** ในตารางเปรียบเทียบหลักหมายถึง — Tableau Agent เปิดใช้งานได้ต่างกันตามรูปแบบการติดตั้ง:
+
+| ประเด็น | ☁️ Tableau Cloud | 🖥️ Tableau Server (On-Premise) |
+|---|---|---|
+| **Edition ที่ใช้ได้** | ต้องเป็น **Cloud+ Edition หรือ Tableau+ Bundle** เท่านั้น | ใช้ได้ทุก Edition (Standard/Enterprise/Server+) ตั้งแต่เวอร์ชัน 2025.3 เป็นต้นไป |
+| **LLM ที่ใช้** | Salesforce เลือก Model ให้อัตโนมัติ (ไม่ต้องตั้งค่าเอง) | องค์กรต้องเชื่อมต่อ LLM ของตัวเอง (Bring Your Own LLM) ผ่าน API Key |
+| **ผ่าน Einstein Trust Layer หรือไม่** | ✅ ผ่าน — ได้ Zero Data Retention, PII Masking อัตโนมัติ | ❌ ไม่ผ่าน — ไม่มี PII Masking ในตัว ต้องพึ่งมาตรการความปลอดภัยของ LLM Provider เอง |
+| **ค่าใช้จ่าย LLM** | รวมอยู่ใน Tableau+ Bundle แล้ว | แยกบิลตามสัญญาที่องค์กรทำกับ LLM Provider เอง |
+| **การตั้งค่า** | เปิดใช้งานได้ทันที ไม่ต้องเตรียมอะไรเพิ่ม | ผู้ดูแลระบบ (Server Admin) ต้องตั้งค่า AI ระดับ Site และใส่ API Key เอง |
+
+> [!IMPORTANT]
+> สรุปสั้น ๆ: บน **Cloud** ต้องจ่ายเพิ่มเป็น Tableau+ ถึงจะได้ Agent แต่ได้ระบบความปลอดภัยครบจบในตัว ส่วนบน **Server (On-Premise)** ใช้ได้ตั้งแต่ Edition พื้นฐาน แต่ต้องหา LLM มาเชื่อมเอง และรับผิดชอบเรื่องความปลอดภัยข้อมูลเอง
+
+### 🧠 LLM ที่รองรับ
+
+| Deployment | LLM Provider ที่รองรับ | เลือก Model เองได้ไหม |
+|---|---|---|
+| **Tableau Cloud** | Salesforce จับคู่กับ Azure OpenAI โดยอัตโนมัติ (เลือก Model ที่ดีที่สุดตาม Performance/ความแม่นยำ/ต้นทุน ให้เอง) | ❌ เลือกเองไม่ได้ — Tableau เป็นผู้เลือกให้ |
+| **Tableau Server** (ตั้งแต่ 2025.3) | **OpenAI** | ✅ เลือกได้ (เริ่มต้นรองรับตัวเดียว) |
+| **Tableau Server** (ตั้งแต่ 2026.2) | **OpenAI** หรือ **Azure OpenAI** | ✅ เลือกได้ 2 ทางเลือก |
+
+> [!NOTE]
+> ปัจจุบัน Tableau Agent **ยังไม่รองรับการเชื่อมต่อ LLM แบบ Bring-Your-Own-LLM (BYOLLM) กว้าง ๆ** เช่น Amazon Bedrock, Google Gemini, หรือ Anthropic Claude โดยตรง (แม้ระบบ Salesforce/Agentforce โดยรวมจะรองรับผู้ให้บริการเหล่านี้ในฟีเจอร์ AI อื่นก็ตาม) สำหรับ Tableau Agent โดยเฉพาะ รองรับเพียง **OpenAI** และ **Azure OpenAI** เท่านั้น ข้อมูลนี้อาจเปลี่ยนแปลงได้ในอนาคต ควรตรวจสอบ Release Notes ล่าสุดก่อนวางแผน
+
+### 💡 ประโยชน์ที่ได้รับจาก Tableau Agent
+
+- ลดระยะเวลาสร้าง Dashboard จากชั่วโมงเหลือเป็นนาที ด้วยการพิมพ์คำถามแทนการลาก-วางฟิลด์
+- ผู้ใช้ที่ไม่ถนัดสูตรคำนวณ สามารถขอให้ Agent เขียน Calculated Field ให้ และอธิบายวิธีทำงานได้ทันที
+- ลดภาระทีม Data/BI ที่ต้องคอยตอบคำถามพื้นฐานซ้ำ ๆ จากผู้ใช้ทั่วไป
+- องค์กรที่มีข้อจำกัดด้าน Data Residency หรือ Compliance สามารถเลือกใช้ Tableau Server + LLM ของตัวเองเพื่อควบคุมข้อมูลได้เต็มที่ แทนที่จะต้องส่งข้อมูลผ่าน Salesforce Cloud
+
+---
+
 ## 🎯 เหมาะกับใคร?
 
 | กลุ่มผู้ใช้ | Edition ที่แนะนำ | เหตุผล |
@@ -221,6 +275,10 @@ Edition พื้นฐานที่มีครบสำหรับการ
 - [Advanced Management — tableau.com](https://www.tableau.com/products/advanced-management)
 - [Tableau Pulse — tableau.com](https://www.tableau.com/products/tableau-pulse)
 - [Tableau Pulse Release Notes — Tableau Help](https://help.tableau.com/current/online/en-us/pulse_intro.htm)
+- [Tableau Agent — tableau.com](https://www.tableau.com/products/tableau-agent)
+- [Tableau Agent FAQ — Tableau Help](https://help.tableau.com/current/online/en-us/web_author_einstein_faq.htm)
+- [AI in Tableau and Trust — Tableau Help](https://help.tableau.com/current/tableau/en-us/tableau_gai_einstein_trust.htm)
+- [Turn on AI in Tableau for your Site (Server) — Tableau Help](https://help.tableau.com/current/server-linux/en-us/sites_gai_server.htm)
 
 ---
 
